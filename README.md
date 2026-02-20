@@ -24,12 +24,12 @@ npm install @gsn/connector
 
 ### GitHub (available now)
 ```bash
-npm install github+https://github.com/gs-network/gsn-connector.git
+npm install github+https://github.com/ZeusOG/gsn-connector.git
 ```
 
 Or clone and install:
 ```bash
-git clone https://github.com/gs-network/gsn-connector.git
+git clone https://github.com/ZeusOG/gsn-connector.git
 cd gsn-connector
 npm install
 npm run build
@@ -96,4 +96,4 @@ MIT
 
 ## GitHub
 
-https://github.com/gs-network/gsn-connector
+https://github.com/ZeusOG/gsn-connector
