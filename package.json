@@ -1,0 +1,39 @@
+{
+  "name": "@gsn/connector",
+  "version": "1.0.0",
+  "description": "Open-source multi-agent coordination library for AI agents. Memory sync, task routing, and knowledge sharing.",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [
+    "gsn",
+    "multi-agent",
+    "coordination",
+    "agent-network",
+    "openclaw",
+    "a2a",
+    "agent-to-agent"
+  ],
+  "author": "GSN Community",
+  "license": "MIT",
+  "dependencies": {
+    "uuid": "^9.0.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/lodash": "^4.14.195",
+    "@types/node": "^20.0.0",
+    "@types/uuid": "^9.0.0",
+    "jest": "^29.5.0",
+    "typescript": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gs-network/gsn-connector.git"
+  }
+}
