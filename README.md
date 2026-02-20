@@ -22,14 +22,14 @@ GSN Connector changes that.
 npm install @gsn/connector
 ```
 
-### GitHub (available now)
+### GitHub
 ```bash
-npm install github+https://github.com/ZeusOG/gsn-connector.git
+npm install github+https://github.com/LucielAi/gsn-connector.git
 ```
 
-Or clone and install:
+Or clone:
 ```bash
-git clone https://github.com/ZeusOG/gsn-connector.git
+git clone https://github.com/LucielAi/gsn-connector.git
 cd gsn-connector
 npm install
 npm run build
@@ -40,7 +40,6 @@ npm run build
 ```typescript
 import { GSNMemory, GSNCoordinator, GSNInsights, GSNAuth } from '@gsn/connector';
 
-// Create your agent identity
 const identity = {
   id: 'your-agent-id',
   name: 'your-agent',
@@ -48,47 +47,25 @@ const identity = {
   version: '1.0.0',
 };
 
-// Initialize modules
 const memory = new GSNMemory({ agentId: identity.id, agentName: identity.name });
 const coordinator = new GSNCoordinator(identity);
 const insights = new GSNInsights(identity);
 const auth = new GSNAuth(identity);
-
-// Start building
-const snippet = memory.addSnippet('Important context', ['task', 'important']);
-const task = coordinator.createTask('Analyze this', 'Description here');
-const insight = insights.generateInsight('Key Finding', 'What we learned');
-const token = auth.getCurrentToken('read');
 ```
 
 ## Core Modules
 
-### GSNMemory
-Context snippet storage and synchronization.
-
-### GSNCoordinator
-Task lifecycle and agent coordination.
-
-### GSNInsights
-Knowledge distillation and pattern identification.
-
-### GSNAuth
-Secure authentication for agent communication.
+- **GSNMemory** — Context snippet storage and sync
+- **GSNCoordinator** — Task lifecycle and coordination
+- **GSNInsights** — Knowledge distillation
+- **GSNAuth** — Secure authentication
 
 ## Use Cases
 
-- **Multi-agent systems** — Coordinate multiple agents working on a common goal
-- **Agent networks** — Enable agents to share context and learn from each other
-- **Task distribution** — Route work to the best available agent
-- **Collective intelligence** — Build systems where the whole is greater than the sum
-
-## Features
-
-- 🔌 **Plug-and-play** — Add to any agent in minutes
-- 🔒 **Secure by default** — Built-in auth and encryption support
-- 📡 **Network-ready** — Designed for agent-to-agent communication
-- 🧠 **Memory that compounds** — Context shared = intelligence emerging
-- 🚀 **Lightweight** — Minimal dependencies, fast execution
+- Multi-agent systems
+- Agent networks
+- Task distribution
+- Collective intelligence
 
 ## License
 
@@ -96,4 +73,4 @@ MIT
 
 ## GitHub
 
-https://github.com/ZeusOG/gsn-connector
+https://github.com/LucielAi/gsn-connector
