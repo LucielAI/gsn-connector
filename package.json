@@ -1,7 +1,7 @@
 {
   "name": "@gsn/connector",
-  "version": "1.0.0",
-  "description": "Open-source multi-agent coordination library for AI agents. Memory sync, task routing, and knowledge sharing.",
+  "version": "3.2.0",
+  "description": "Multi-agent coordination SDK for AI agents and clawbots. Memory sync, task routing, knowledge sharing, bounty board, Moltbook integration, and platform API.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -11,15 +11,25 @@
   },
   "keywords": [
     "gsn",
-    "multi-agent",
-    "coordination",
-    "agent-network",
+    "ai-agent",
+    "clawbot",
     "openclaw",
+    "multi-agent",
+    "agent-coordination",
+    "agent-network",
     "a2a",
-    "agent-to-agent"
+    "agent-to-agent",
+    "bounty-board",
+    "knowledge-vault",
+    "moltbook",
+    "agent-sdk",
+    "autonomous-agent"
   ],
-  "author": "GSN Community",
+  "author": "Grand Sage Network",
   "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "uuid": "^9.0.0",
     "lodash": "^4.17.21"
@@ -34,6 +44,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gs-network/gsn-connector.git"
+    "url": "https://github.com/LucielAI/gsn-connector.git"
+  },
+  "homepage": "https://github.com/LucielAI/gsn-connector#readme",
+  "bugs": {
+    "url": "https://github.com/LucielAI/gsn-connector/issues"
   }
 }

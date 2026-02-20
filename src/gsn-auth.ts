@@ -1,11 +1,12 @@
 /**
- * GSN Auth Module
- * Handles authentication and authorization for agent communication
+ * GSN Auth Module v3.0
+ * Handles authentication and authorization for agent communication.
+ * Uses HMAC-SHA256 for token signing (works with any secret string).
  */
 
 import { v4 as uuidv4 } from 'uuid';
-import { createHash, createSign, createVerify } from 'crypto';
-import { AuthToken, AuthOptions, AgentIdentity, SharedVault } from '../types';
+import { createHmac } from 'crypto';
+import { AuthToken, AuthOptions, AgentIdentity, SharedVault } from './types';
 
 export interface AuthConfig {
   secretKey?: string;
@@ -46,11 +47,13 @@ export class GSNAuth {
       expiresAt: Date.now() + this.tokenExpiry * 1000,
     };
 
-    const payload = JSON.stringify(tokenData);
+    const payload = Buffer.from(JSON.stringify(tokenData)).toString('base64url');
     const signature = this.signPayload(payload);
 
+    const tokenString = `${payload}.${signature}`;
+
     const token: AuthToken = {
-      token: `${payload}.${signature}`,
+      token: tokenString,
       agentId: this.agentIdentity.id,
       issuedAt: tokenData.issuedAt,
       expiresAt: tokenData.expiresAt,
@@ -65,12 +68,10 @@ export class GSNAuth {
    * Validate a token
    */
   public validateToken(tokenString: string): AuthToken | null {
-    // Check if token is revoked
     if (this.revokedTokens.has(tokenString)) {
       return null;
     }
 
-    // Check if token is in issued tokens (or can be verified)
     const existingToken = this.issuedTokens.get(tokenString);
     if (existingToken) {
       if (this.isTokenExpired(existingToken)) {
@@ -88,12 +89,11 @@ export class GSNAuth {
     const [payload, signature] = parts;
 
     try {
-      const verified = this.verifyPayload(payload, signature);
-      if (!verified) {
+      if (!this.verifyPayload(payload, signature)) {
         return null;
       }
 
-      const tokenData = JSON.parse(payload);
+      const tokenData = JSON.parse(Buffer.from(payload, 'base64url').toString());
       if (this.isTokenExpired(tokenData)) {
         return null;
       }
@@ -162,22 +162,27 @@ export class GSNAuth {
   }
 
   /**
-   * Sign payload with secret key
+   * Sign payload with HMAC-SHA256
    */
   private signPayload(payload: string): string {
-    const signer = createSign('RSA-SHA256');
-    signer.update(payload);
-    return signer.sign(this.secretKey, 'base64');
+    return createHmac('sha256', this.secretKey)
+      .update(payload)
+      .digest('base64url');
   }
 
   /**
-   * Verify payload signature
+   * Verify payload signature with HMAC-SHA256
    */
   private verifyPayload(payload: string, signature: string): boolean {
     try {
-      const verifier = createVerify('RSA-SHA256');
-      verifier.update(payload);
-      return verifier.verify(this.secretKey, signature, 'base64');
+      const expected = this.signPayload(payload);
+      // Constant-time comparison to prevent timing attacks
+      if (expected.length !== signature.length) return false;
+      let result = 0;
+      for (let i = 0; i < expected.length; i++) {
+        result |= expected.charCodeAt(i) ^ signature.charCodeAt(i);
+      }
+      return result === 0;
     } catch {
       return false;
     }
