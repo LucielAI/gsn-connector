@@ -12,7 +12,7 @@ import {
   AgentIdentity,
   CoordinationEvent,
   SharedVault,
-} from '../types';
+} from './types';
 
 export interface TaskAssignment {
   taskId: string;

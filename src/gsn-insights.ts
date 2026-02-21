@@ -4,7 +4,7 @@
  */
 
 import { v4 as uuidv4 } from 'uuid';
-import { Insight, KnowledgeDistillationEvent, AgentIdentity, SharedVault } from '../types';
+import { Insight, KnowledgeDistillationEvent, AgentIdentity, SharedVault } from './types';
 
 export interface InsightOptions {
   sourceTaskId?: string;

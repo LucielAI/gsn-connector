@@ -1,7 +1,7 @@
 // Test file for GSN Connector
 // This is a placeholder test to verify the build works
 
-import { GSNMemory, GSNCoordinator, GSNInsights, GSNAuth } from './index';
+import { GSNMemory, GSNCoordinator, GSNInsights, GSNAuth } from '../src/index';
 
 describe('GSN Connector', () => {
   let memory: GSNMemory;
@@ -66,5 +66,21 @@ describe('GSN Connector', () => {
     const validated = auth.validateToken(token.token);
     expect(validated).not.toBeNull();
     expect(validated?.scope).toBe('read');
+  });
+
+  test('searchByTag should return snippets matching a single tag', () => {
+    memory.addSnippet('pref data', ['user-prefs']);
+    memory.addSnippet('limit data', ['api-limits']);
+    memory.addSnippet('both tags', ['user-prefs', 'api-limits']);
+
+    const prefSnippets = memory.searchByTag('user-prefs');
+    expect(prefSnippets).toHaveLength(2);
+    expect(prefSnippets.every(s => s.tags.includes('user-prefs'))).toBe(true);
+
+    const limitSnippets = memory.searchByTag('api-limits');
+    expect(limitSnippets).toHaveLength(2);
+
+    const noneSnippets = memory.searchByTag('nonexistent');
+    expect(noneSnippets).toHaveLength(0);
   });
 });

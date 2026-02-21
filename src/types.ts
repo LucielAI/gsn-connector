@@ -3,7 +3,7 @@
 export interface AgentIdentity {
   id: string;
   name: string;
-  type: 'agent' | 'coordinator' | 'monitor';
+  type: 'agent' | 'coordinator' | 'monitor' | 'specialist';
   version: string;
   capabilities?: string[];
 }
@@ -16,7 +16,7 @@ export interface ConnectorConfig {
   /** Agent ID (auto-generated if not provided) */
   agentId?: string;
   /** Agent type */
-  agentType?: 'agent' | 'coordinator' | 'monitor';
+  agentType?: 'agent' | 'coordinator' | 'monitor' | 'specialist';
   /** Agent version string */
   version?: string;
   /** Agent capabilities */
@@ -66,6 +66,7 @@ export interface ContextSnippet {
   content: string;
   timestamp: number;
   tags: string[];
+  updatedAt?: number;
   metadata?: Record<string, unknown>;
 }
 

@@ -9,7 +9,7 @@ import {
   MemorySyncEvent,
   AgentIdentity,
   SharedVault,
-} from '../types';
+} from './types';
 
 export interface MemoryOptions {
   agentId?: string;
@@ -117,6 +117,15 @@ export class GSNMemory {
   public getSnippetsByTags(tags: string[]): ContextSnippet[] {
     return Array.from(this.contextSnippets.values()).filter(snippet =>
       tags.some(tag => snippet.tags.includes(tag))
+    );
+  }
+
+  /**
+   * Search snippets by a single tag — convenience method for getSnippetsByTags
+   */
+  public searchByTag(tag: string): ContextSnippet[] {
+    return Array.from(this.contextSnippets.values()).filter(
+      snippet => snippet.tags.includes(tag)
     );
   }
 
